@@ -1,0 +1,33 @@
+body{
+
+    main{
+        border: 5px solid black;
+        width: 800px;
+        height: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        .main__container{
+            @extend main;
+            width: 750px;
+            height: 750px;
+            .main__container-surface{
+                @extend main;
+                width: 700px;
+                height: 700px;
+                display: grid;
+                grid-template-columns: repeat(20, 1fr);
+                grid-template-rows: repeat(20, 1fr);
+                .main__surface-carre{
+                    border: 1px solid black;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+        }
+
+    }
+
+}
