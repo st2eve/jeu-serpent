@@ -24,8 +24,14 @@ body main .main__container .main__container-surface {
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20, 1fr);
 }
-body main .main__container .main__container-surface .main__surface-carre {
+body main .main__container .main__container-surface .main__surface-carre, body main .main__container .main__container-surface .mouse, body main .main__container .main__container-surface .snakeHead {
   border: 1px solid black;
   width: 100%;
   height: 100%;
+}
+body main .main__container .main__container-surface .snakeHead {
+  background-color: red;
+}
+body main .main__container .main__container-surface .mouse {
+  background-color: blue;
 }/*# sourceMappingURL=style.css.map */
