@@ -20,6 +20,9 @@ function snakeHead(){
 }
 
 function mouse(){
+    if(document.querySelector('.mouse')){
+        document.querySelector('.mouse').remove()
+    }
     const createSqrMouse = document.createElement('div')
     const selectContainer = document.querySelector('.main__container-surface')
     createSqrMouse.setAttribute('class', 'mouse')
@@ -35,7 +38,6 @@ function getRandomInt(min, max) {
 
 function moveSnake(){
     const selectSnake = document.querySelector('.snakeHead');
-    
 }
 
 createGrid()
@@ -85,41 +87,48 @@ function arrowRight(){
 }
 
 
+let arrUp = setInterval(arrowUp, 300);
+let arrDown = setInterval(arrowDown, 300);
+let arrLeft = setInterval(arrowLeft, 300);
+let arrRight = setInterval(arrowRight, 300);
+
+
 window.addEventListener('keydown', event => {
-    const arrowUpInter = setInterval(arrowUp, 300);
-    const arrowDownInter = setInterval(arrowDown, 300);
-    const arrowLeftInter = setInterval(arrowLeft, 300);
-    const arrowRightInter = setInterval(arrowRight, 300);
+    
     if (event.which === 38) {
         //up
-        event.preventDefault();
-        clearInterval(arrowDownInter)
-        clearInterval(arrowLeftInter)
-        clearInterval(arrowRightInter)
-        arrowUpInter;
+        clearInterval(arrUp)
+        clearInterval(arrDown)
+        clearInterval(arrLeft)
+        clearInterval(arrRight)
+        arrUp = setInterval(arrowUp, 300);
+        console.log('up');
     }
     else if(event.which === 40){
         //down
-        event.preventDefault();
-        clearInterval(arrowUpInter)
-        clearInterval(arrowLeftInter)
-        clearInterval(arrowRightInter)
-        arrowDownInter;
+        clearInterval(arrUp)
+        clearInterval(arrDown)
+        clearInterval(arrLeft)
+        clearInterval(arrRight)
+        arrDown = setInterval(arrowDown, 300);
+        console.log('down');
     }
     else if(event.which === 37){
         //left
-        event.preventDefault();
-        clearInterval(arrowUpInter)
-        clearInterval(arrowDownInter)
-        clearInterval(arrowRightInter)
-        arrowLeftInter;
+        clearInterval(arrUp)
+        clearInterval(arrDown)
+        clearInterval(arrLeft)
+        clearInterval(arrRight)
+        arrLeft = setInterval(arrowLeft, 300);
+        console.log('left');
     }
     else if(event.which === 39){
         //right
-        event.preventDefault();
-        clearInterval(arrowUpInter)
-        clearInterval(arrowDownInter)
-        clearInterval(arrowLeftInter)
-        arrowRightInter;
+        clearInterval(arrUp)
+        clearInterval(arrDown)
+        clearInterval(arrLeft)
+        clearInterval(arrRight)
+        arrRight = setInterval(arrowRight, 300);
+        console.log('right');
     }
 })
