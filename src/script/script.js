@@ -15,11 +15,11 @@ function snakeHead(){
     createSqrSnake.setAttribute('class', 'snakeHead')
     createSqrSnake.setAttribute('style', 'grid-column: 10; grid-row: 10;')
     selectContainer.appendChild(createSqrSnake)
-    moveSnake()
     
 }
 
 function mouse(){
+
     if(document.querySelector('.mouse')){
         document.querySelector('.mouse').remove()
     }
@@ -28,6 +28,7 @@ function mouse(){
     createSqrMouse.setAttribute('class', 'mouse')
     createSqrMouse.setAttribute('style', `grid-column: ${getRandomInt(1, 20)}; grid-row: ${getRandomInt(1, 20)};`)
     selectContainer.appendChild(createSqrMouse)
+
 }
 
 function getRandomInt(min, max) {
@@ -36,17 +37,15 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min +1)) + min;
 }
 
-function moveSnake(){
-    const selectSnake = document.querySelector('.snakeHead');
-}
-
 createGrid()
 
-const selectSnake = document.querySelector('.snakeHead');
+let selectSnake = document.querySelector('.snakeHead');
 let y = selectSnake.style.gridColumn;
 let x = selectSnake.style.gridRow;
 
 function arrowUp(){
+    let selectSnake = document.querySelector('.snakeHead');
+    let selectSnakeBodys = document.querySelectorAll('.snakeBody');
     if(parseInt(selectSnake.style.gridRow) > 1){
         selectSnake.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(x)-1};`);
         x = selectSnake.style.gridRow;
@@ -54,9 +53,20 @@ function arrowUp(){
         selectSnake.setAttribute('style', `grid-column: ${y}; grid-row: 20;`);
         x = selectSnake.style.gridRow;
     }
+    mouseEated()
+    if(document.querySelector('.snakeBody')){
+        let i=1;
+        for(i=1 ; selectSnakeBodys.NodeList[i].style.gridRow == selectSnakeBodys.NodeList[i-1].style.gridRow; i++){
+            console.log(selectSnakeBodys.NodeList[i].style.gridRow)
+            console.log(selectSnakeBodys.NodeList[i-1].style.gridRow)
+            //selectSnakeBodys.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(selectSnakeBodys[i].style.gridRow)+1};`);
+        }
+    }
 }
 
 function arrowDown(){
+    let selectSnake = document.querySelector('.snakeHead');
+    let selectSnakeBodys = document.querySelectorAll('.snakeBody');
     if(parseInt(selectSnake.style.gridRow) < 20){
         selectSnake.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(x)+1};`);
         x = selectSnake.style.gridRow;
@@ -64,9 +74,17 @@ function arrowDown(){
         selectSnake.setAttribute('style', `grid-column: ${y}; grid-row: 1;`);
         x = selectSnake.style.gridRow;
     }
+    mouseEated()
+    if(document.querySelector('.snakeBody')){
+        for(let selectSnakeBody of selectSnakeBodys){
+            selectSnakeBody.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(x)-1};`);
+        }
+    }
 }
 
 function arrowLeft(){
+    let selectSnake = document.querySelector('.snakeHead');
+    let selectSnakeBodys = document.querySelectorAll('.snakeBody');
     if(parseInt(selectSnake.style.gridColumn) > 1){
         selectSnake.setAttribute('style', `grid-column: ${parseInt(y)-1}; grid-row: ${x};`);
         y = selectSnake.style.gridColumn;
@@ -74,9 +92,17 @@ function arrowLeft(){
         selectSnake.setAttribute('style', `grid-column: 20; grid-row: ${x};`);
         y = selectSnake.style.gridColumn;
     }
+    mouseEated()
+    if(document.querySelector('.snakeBody')){
+        for(let selectSnakeBody of selectSnakeBodys){
+            selectSnakeBody.setAttribute('style', `grid-column: ${parseInt(y)+1}; grid-row: ${x};`);
+        }
+    }
 }
 
 function arrowRight(){
+    let selectSnake = document.querySelector('.snakeHead');
+    let selectSnakeBodys = document.querySelectorAll('.snakeBody');
     if(parseInt(selectSnake.style.gridColumn) < 20){
         selectSnake.setAttribute('style', `grid-column: ${parseInt(y)+1}; grid-row: ${x};`);
         y = selectSnake.style.gridColumn;
@@ -84,14 +110,29 @@ function arrowRight(){
         selectSnake.setAttribute('style', `grid-column: 1; grid-row: ${x};`);
         y = selectSnake.style.gridColumn;
     }
+    mouseEated()
+    if(document.querySelector('.snakeBody')){
+        for(let selectSnakeBody of selectSnakeBodys){
+            selectSnakeBody.setAttribute('style', `grid-column: ${parseInt(y)-1}; grid-row: ${x};`);
+        }
+    }
 }
 
+function arrUp(){
+    let arrUp = setInterval(arrowUp, 300);
+}
 
-let arrUp = setInterval(arrowUp, 300);
-let arrDown = setInterval(arrowDown, 300);
-let arrLeft = setInterval(arrowLeft, 300);
-let arrRight = setInterval(arrowRight, 300);
+function arrDown(){
+    let arrDown = setInterval(arrowDown, 300);
+}
 
+function arrLeft(){
+    let arrLeft = setInterval(arrowLeft, 300);
+}
+
+function arrRight(){
+    let arrRight = setInterval(arrowRight, 300);
+}
 
 window.addEventListener('keydown', event => {
     
@@ -102,7 +143,6 @@ window.addEventListener('keydown', event => {
         clearInterval(arrLeft)
         clearInterval(arrRight)
         arrUp = setInterval(arrowUp, 300);
-        console.log('up');
     }
     else if(event.which === 40){
         //down
@@ -111,7 +151,6 @@ window.addEventListener('keydown', event => {
         clearInterval(arrLeft)
         clearInterval(arrRight)
         arrDown = setInterval(arrowDown, 300);
-        console.log('down');
     }
     else if(event.which === 37){
         //left
@@ -120,7 +159,6 @@ window.addEventListener('keydown', event => {
         clearInterval(arrLeft)
         clearInterval(arrRight)
         arrLeft = setInterval(arrowLeft, 300);
-        console.log('left');
     }
     else if(event.which === 39){
         //right
@@ -129,6 +167,30 @@ window.addEventListener('keydown', event => {
         clearInterval(arrLeft)
         clearInterval(arrRight)
         arrRight = setInterval(arrowRight, 300);
-        console.log('right');
     }
 })
+
+function snakeBody(){
+    let selectSnake = document.querySelector('.snakeHead');
+    const createSqrSnakeBody = document.createElement('div')
+    const selectContainer = document.querySelector('.main__container-surface')
+    createSqrSnakeBody.setAttribute('class', 'snakeBody')
+    createSqrSnakeBody.setAttribute('style', `grid-column: ${parseInt(selectSnake.style.gridColumn)}; grid-row: ${parseInt(selectSnake.style.gridRow)};`)
+    selectContainer.appendChild(createSqrSnakeBody)
+}
+
+function removeSqr(){
+    const removeSqr = document.querySelector('.main__surface-carre')
+    removeSqr.remove()
+}
+
+function mouseEated(){
+    let selectSnake = document.querySelector('.snakeHead');
+    let selectMouse = document.querySelector('.mouse');
+
+    if(parseInt(selectSnake.style.gridColumn) == parseInt(selectMouse.style.gridColumn) && parseInt(selectSnake.style.gridRow) == parseInt(selectMouse.style.gridRow)){
+        mouse();
+        snakeBody();
+        removeSqr();
+    }
+}

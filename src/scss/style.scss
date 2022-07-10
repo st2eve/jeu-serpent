@@ -28,6 +28,9 @@ body{
                     @extend .main__surface-carre;
                     background-color: red;
                 }
+                .snakeBody{
+                    @extend .snakeHead;
+                }
                 .mouse{
                     @extend .main__surface-carre;
                     background-color: blue;
