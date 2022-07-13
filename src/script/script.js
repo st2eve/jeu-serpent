@@ -55,11 +55,8 @@ function arrowUp(){
     }
     mouseEated()
     if(document.querySelector('.snakeBody')){
-        let i=1;
-        for(i=1 ; selectSnakeBodys.NodeList[i].style.gridRow == selectSnakeBodys.NodeList[i-1].style.gridRow; i++){
-            console.log(selectSnakeBodys.NodeList[i].style.gridRow)
-            console.log(selectSnakeBodys.NodeList[i-1].style.gridRow)
-            //selectSnakeBodys.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(selectSnakeBodys[i].style.gridRow)+1};`);
+        for(let selectSnakeBody of selectSnakeBodys){
+            selectSnakeBody.setAttribute('style', `grid-column: ${y}; grid-row: ${parseInt(x)+1};`);
         }
     }
 }
